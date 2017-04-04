@@ -1,5 +1,6 @@
 body {
-  margin: 0; }
+  margin: 0;
+  background: #e1e1ef; }
 
 canvas[data-cursor='normal'] {
   cursor: normal;
@@ -13,3 +14,6 @@ canvas[data-cursor='grab'] {
 canvas[data-cursor='grabbing'] {
   cursor: grabbing;
   cursor: -webkit-grabbing; }
+canvas[data-cursor='cell'] {
+  cursor: cell;
+  cursor: -webkit-cell; }

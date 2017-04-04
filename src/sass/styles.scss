@@ -1,9 +1,10 @@
 body {
   margin: 0;
+  background: rgb(225,225,239);
 }
 
 canvas {
-  @each $val in normal,pointer,grab,grabbing {
+  @each $val in normal,pointer,grab,grabbing,cell {
     &[data-cursor='#{$val}'] { 
       cursor: $val; 
       cursor: -webkit-#{$val}; }}}
