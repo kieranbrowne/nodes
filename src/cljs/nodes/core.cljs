@@ -245,8 +245,6 @@
       (let [connect-state @(cursor state [:ui :connect])
             from-index (.indexOf @nodes (:from connect-state))
             to-name (:name (:to connect-state))]
-        (println from-index)
-        (println to-name)
         (swap! nodes update-in [from-index :connections] conj to-name)
 
         ))

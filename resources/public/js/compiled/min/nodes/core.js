@@ -483,10 +483,6 @@ return (cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.core.deref.cljs$cor
 })();
 var from_index_13161 = (cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.core.deref.cljs$core$IFn$_invoke$arity$1(nodes.core.nodes) : cljs.core.deref.call(null,nodes.core.nodes)).indexOf(cljs.core.cst$kw$from.cljs$core$IFn$_invoke$arity$1(connect_state_13160));
 var to_name_13162 = cljs.core.cst$kw$name.cljs$core$IFn$_invoke$arity$1(cljs.core.cst$kw$to.cljs$core$IFn$_invoke$arity$1(connect_state_13160));
-cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([from_index_13161], 0));
-
-cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([to_name_13162], 0));
-
 cljs.core.swap_BANG_.cljs$core$IFn$_invoke$arity$variadic(nodes.core.nodes,cljs.core.update_in,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [from_index_13161,cljs.core.cst$kw$connections], null),cljs.core.conj,cljs.core.array_seq([to_name_13162], 0));
 }
 
