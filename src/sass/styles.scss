@@ -1,3 +1,9 @@
 body {
   margin: 0;
 }
+
+canvas {
+  @each $val in normal,pointer,grab,grabbing {
+    &[data-cursor='#{$val}'] { 
+      cursor: $val; 
+      cursor: -webkit-#{$val}; }}}

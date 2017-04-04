@@ -2,8 +2,9 @@
 /target
 /*-init.clj
 out
-/resources/public/js/compiled/test/
 # For pushing to gh-pages, we want only the bare minimum
-/resources/public/js/compiled/dev/**/*.cljs
+/resources/public/js/compiled/test/
+/resources/public/js/compiled/dev/
+/resources/public/js/compiled/min/**/*.cljs
 /resources/public/js/compiled/dev/**/*.cljs.cache.edn
 /resources/public/js/compiled/dev/**/*.js.map

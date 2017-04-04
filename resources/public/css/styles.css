@@ -1,0 +1,15 @@
+body {
+  margin: 0; }
+
+canvas[data-cursor='normal'] {
+  cursor: normal;
+  cursor: -webkit-normal; }
+canvas[data-cursor='pointer'] {
+  cursor: pointer;
+  cursor: -webkit-pointer; }
+canvas[data-cursor='grab'] {
+  cursor: grab;
+  cursor: -webkit-grab; }
+canvas[data-cursor='grabbing'] {
+  cursor: grabbing;
+  cursor: -webkit-grabbing; }

@@ -20,11 +20,16 @@
        :name "Timothy"
        :position {:x 120 :y 90}
        :connections []}
-      ]}
-    {:ui {:drag nil}}
+      ]
+     :ui {:frame-count 0
+          :drag nil
+          :cursor "normal"}}
     ))
 
 (def nodes (cursor state [:nodes]))
+
+(def ui-cursor (cursor state [:ui :cursor]))
+(def frame-count (cursor state [:ui :frame-count]))
 
 (defn get-node-by [k v]
   (first (filter #(= (k %) v) @nodes)))
@@ -55,26 +60,38 @@
 
 (defn draw-node [ctx node-def]
   (let [{x :x y :y} (:position node-def)]
-    (.fillRect ctx x y 50 20)
+    (set! (.-fillStyle ctx) "rgb(200,200,200)")
+    (.fillRect ctx x y 70 20)
+    (set! (.-fillStyle ctx) "rgb(80,80,80)")
+    (set! (.-font ctx) "15px Arial")
+    (.fillText ctx (:name node-def) (+ 5 x) (+ 16 y))
     (doseq [conn (map (partial get-node-by :name) 
                       (:connections node-def))]
-      (draw-link ctx node-def conn))))
+      (.setLineDash ctx (int-array []))
+      (set! (.-strokeStyle ctx) "rgb(180,180,180)")
+      (set! (.-lineDashOffset ctx) (- (mod (/ @frame-count 30) 8)))
+      (draw-link ctx node-def conn)
+      (.setLineDash ctx (int-array [4 4]))
+      (set! (.-strokeStyle ctx) "rgb(130,130,130)")
+      (draw-link ctx node-def conn)
+      )))
 
 (defn draw-app []
   (let [canvas (.getElementById js/document "main")
         ctx (.getContext canvas "2d")]
     (.clearRect ctx 0 0 (.-width canvas) (.-height canvas))
     (set! (.-fillStyle ctx) "rgb(200,200,200)")
-    (set! (.-strokeStyle ctx) "rgb(100,100,100)")
     (set! (.-lineWidth ctx) "2")
     (doseq [node @nodes] (draw-node ctx node))
-    ))
+    (swap! frame-count inc)
+    (js/setTimeout
+      #(.requestAnimationFrame js/window draw-app) 30)))
 
 (defn mouseover? [mx my node]
   (let [x (:x (:position node))
         y (:y (:position node))]
     (and (> mx x) (> my y)
-         (< mx (+ 50 x))
+         (< mx (+ 70 x))
          (< my (+ 20 y))
          )))
 
@@ -101,7 +118,6 @@
               {:start {:x mx :y my}
                :dragging clicked-node
                }))
-    (println clicked-node)
     ))
 
 (defn handle-drag [e]
@@ -114,15 +130,27 @@
       (swap! nodes update-in [drag-index :position :x] + (- x startx))
       (swap! nodes update-in [drag-index :position :y] + (- y starty))
       (reset! (cursor state [:ui :drag :start]) {:x x :y y})      
-      (println "hello")
       )))
+
+(defn handle-mouse-move [e]
+  (let [{mx :x my :y} (mouse-pos e)]
+    (reset! 
+      ui-cursor
+      (cond
+        (not (nil? @(cursor state [:ui :drag]))) (do (handle-drag e) "grabbing")
+        (some #(mouseover? mx my %) @nodes) "grab"
+        true "normal"
+        ))))
+
+
 
 
 (defn resize [e]
   (let [canvas (.getElementById js/document "main")]
-    (set! (.-width canvas) (.-offsetWidth canvas))
+    ;;(set! (.-width canvas) (.-offsetWidth canvas))
+    (set! (.-width canvas) (.-innerWidth js/window))
     (set! (.-height canvas) (.-innerHeight js/window))
-    (draw-app)
+    ; (draw-app)
   ))
 
 (defn canvas
@@ -134,23 +162,24 @@
            resize)
         :component-did-mount
         #(do (draw-app) (resize %))
-        :component-did-update
-        draw-app
+        ; :component-did-update
+        ; draw-app
         ; :component-will-mount
         :display-name  "my-component"
         :reagent-render
         (fn [] [:canvas#main 
-                {:data-nodes @nodes
+                {
+                 :data-cursor @ui-cursor
+                 :data-nodes @nodes
                  :on-mouse-down handle-start-drag
-                 :on-mouse-move handle-drag
+                 :on-mouse-move handle-mouse-move
                  :on-mouse-up #(reset! (cursor state [:ui :drag]) nil)
-                 :style {:width "100%"}
+                 ; :style {:width "100%"}
                  }])}))
 
 (defn app []
   [:div
    [canvas]
-   [:p (str @(cursor state [:ui :drag]))]
    ])
 
 
