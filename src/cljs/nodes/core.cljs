@@ -69,7 +69,6 @@
                       (:connections node-def))]
       (.setLineDash ctx (int-array []))
       (set! (.-strokeStyle ctx) "rgb(180,180,180)")
-      (set! (.-lineDashOffset ctx) (- (mod (/ @frame-count 30) 8)))
       (draw-link ctx node-def conn)
       (.setLineDash ctx (int-array [4 4]))
       (set! (.-strokeStyle ctx) "rgb(130,130,130)")
@@ -82,6 +81,7 @@
     (.clearRect ctx 0 0 (.-width canvas) (.-height canvas))
     (set! (.-fillStyle ctx) "rgb(200,200,200)")
     (set! (.-lineWidth ctx) "2")
+    (set! (.-lineDashOffset ctx) (- (mod @frame-count 16)))
     (doseq [node @nodes] (draw-node ctx node))
     (swap! frame-count inc)
     (js/setTimeout

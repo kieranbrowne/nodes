@@ -75,8 +75,6 @@ ctx.setLineDash(cljs.core.int_array.cljs$core$IFn$_invoke$arity$1(cljs.core.Pers
 
 ctx.strokeStyle = "rgb(180,180,180)";
 
-ctx.lineDashOffset = (- cljs.core.mod(((cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.core.deref.cljs$core$IFn$_invoke$arity$1(nodes.core.frame_count) : cljs.core.deref.call(null,nodes.core.frame_count)) / (30)),(8)));
-
 nodes.core.draw_link(ctx,node_def,conn);
 
 ctx.setLineDash(cljs.core.int_array.cljs$core$IFn$_invoke$arity$1(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(4),(4)], null)));
@@ -115,8 +113,6 @@ ctx.setLineDash(cljs.core.int_array.cljs$core$IFn$_invoke$arity$1(cljs.core.Pers
 
 ctx.strokeStyle = "rgb(180,180,180)";
 
-ctx.lineDashOffset = (- cljs.core.mod(((cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.core.deref.cljs$core$IFn$_invoke$arity$1(nodes.core.frame_count) : cljs.core.deref.call(null,nodes.core.frame_count)) / (30)),(8)));
-
 nodes.core.draw_link(ctx,node_def,conn);
 
 ctx.setLineDash(cljs.core.int_array.cljs$core$IFn$_invoke$arity$1(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(4),(4)], null)));
@@ -150,6 +146,8 @@ ctx.clearRect((0),(0),canvas.width,canvas.height);
 ctx.fillStyle = "rgb(200,200,200)";
 
 ctx.lineWidth = "2";
+
+ctx.lineDashOffset = (- cljs.core.mod((cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.core.deref.cljs$core$IFn$_invoke$arity$1(nodes.core.frame_count) : cljs.core.deref.call(null,nodes.core.frame_count)),(16)));
 
 var seq__13010_13016 = cljs.core.seq((cljs.core.deref.cljs$core$IFn$_invoke$arity$1 ? cljs.core.deref.cljs$core$IFn$_invoke$arity$1(nodes.core.nodes) : cljs.core.deref.call(null,nodes.core.nodes)));
 var chunk__13011_13017 = null;
